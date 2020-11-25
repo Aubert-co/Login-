@@ -5,14 +5,15 @@ const bcrypt = require('bcrypt')
 const jwt = require('jws')
 
 
-route.get('./login',(req,res)=>{
+route.get('/login',(req,res)=>{
 
+    res.send('ola')
 })
 
 
 route.post('./login',(req,res)=>{
     const {id,name,pass} = req.body
-    const data = `SELECT * FROM Login_Users WHERE id = ${id}`
+    const data = `SELECT * FROM Login_Users WHERE name = ${name}`
 
     db.query(data,(err,results)=>{
         if(err)throw err
