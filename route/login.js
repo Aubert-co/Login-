@@ -11,9 +11,9 @@ route.get('/login',(req,res)=>{
 })
 
 
-route.post('./login',(req,res)=>{
+route.post('/login',(req,res)=>{
     const {id,name,pass} = req.body
-    const data = `SELECT * FROM Login_Users WHERE name = ${name}`
+    const data = `SELECT * FROM Login_Users WHERE name = '${name}'`
 
     db.query(data,(err,results)=>{
         if(err)throw err
@@ -22,9 +22,9 @@ route.post('./login',(req,res)=>{
         const {senha} = results[0]
         const compare = bcrypt.compareSync(pass,senha)
 
-        if(!compare){
-           return res.send({err:'user not found'})
-        }
+        if(!compare)return res.send({err:'user not found'})
+        
+        return res.json({sucess:'welcome'})
     })
 })
 
