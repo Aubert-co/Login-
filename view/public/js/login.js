@@ -1,3 +1,4 @@
+
 const form = document.querySelector('form')
 
 const namee = document.querySelector('.name')
@@ -10,11 +11,11 @@ const btn = document.querySelector('.btn')
 .addEventListener('click',send)
 
 
+ 
+function send(e){
 
- function send(e){
-
-    const pass = pass1.value
-    const name = namee.value
+    const name = 'joao'
+    ,pass = '123'
 
     if(pass === '' || name === ''){
         
@@ -25,17 +26,15 @@ const btn = document.querySelector('.btn')
     fetch('http://localhost:8080/login',{
         method:'POST',
         headers:  { 'Content-Type': 'application/json'},
-        body:JSON.stringify({name:name,pass:pass})
+        body:JSON.stringify({name:name,password:pass})
     
     }).then(response=>response.json())
        .then((res)=>{
-           const {sucess ,err} = res
-           if(sucess !== undefined){
-               return   errs.innerHTML = sucess
-           }
-           errs.innerHTML = err
+           console.log(res)
+           const {token} = res
+            localStorage.setItem('token',token)
+    
+           window.location.href = 'http://127.0.0.1:5500/view/home.html'
            
        })
-   
-      
 }
