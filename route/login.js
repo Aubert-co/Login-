@@ -13,20 +13,19 @@ const users = require('../middle/users')
 route.post('/login',(req,res)=>{
     const {name,password} = req.body
 
-    
-  
+
     const data = `SELECT * FROM Login_Users WHERE name = '${name}'`
 
     db.query(data,(err,results)=>{
         if(err)throw err
 
-        if(results.length === 0 )return res.send({err:'user not found'})
+        if(results.length === 0 )return res.send({status:401,msg:'user not found'})
         const {senha,id} = results[0]
   
         const compare = bcrypt.compareSync(password,senha)
 
         
-        if(!compare)return res.send({err:'user not found'})
+        if(!compare)return res.send({status:401,msg:'user not found'})
         
         const tokens = {name,id}
     
@@ -36,12 +35,19 @@ route.post('/login',(req,res)=>{
      
         
         
-    
-        return res.send({token,name})
+
+        return res.send({msg:'sucessful login',status:200,token,name})
         
     })
 
 
 })
 
+route.get('/logout',(req,res)=>{
+    const token = req.headers['x-api-token']
+    console.log(users.Obj,'after')
+    users.remove(token)
+    console.log(users.Obj,'before')
+    res.send({msg:'sucess',status:401})
+})
 module.exports = route
