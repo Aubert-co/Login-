@@ -1,0 +1,77 @@
+*{
+    margin: 0;
+}
+
+.container{
+    height: 100vh;
+    display: grid;
+    grid-template-areas: "he he he he he"
+                        "as1 ma ma ma as2"
+                        "fo fo fo fo fo";
+    grid-template-rows: 15vh 75vh 10vh;
+    background-color: rgb(62, 34, 63);
+}
+
+.main{
+    grid-area: ma;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+   
+}
+.aside1{
+    grid-area: as1;
+}
+.aside2{
+    grid-area: as2;
+}
+.header{
+    grid-area: he;
+}
+.footer{
+    grid-area: fo;
+}
+.post{
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    justify-content: center;
+    background-color: white;
+}
+.Inputs{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 50%;
+    justify-content: center;
+    margin-bottom: 25%;
+}
+
+input[type="text"]{
+    width: 40%;
+    margin-top: 5%;
+    outline: none;
+    height: 10%;
+}
+button{
+    margin-top: 5%;
+    align-self: center;
+    width: 40%;
+    height: 10%;
+    cursor: pointer;
+    text-transform: uppercase;
+    border-radius: 10px;
+    outline: none;
+    background-color:  rgb(62, 34, 63);
+    color: white;
+}
+button:hover{
+    background: -webkit-repeating-linear-gradient(rgb(62,34,63) ,white );
+}
+ input[type="text"]:focus{
+    width: 50%;
+}
+.errs{
+    color: red;
+    text-transform: uppercase;
+}
