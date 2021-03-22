@@ -4,23 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./public/css/style.css">
+    <link rel="stylesheet" href="./public/css/login.css">
 </head>
 <body>
-    <div  class="post">
-       
-        <div class="Inputs">
+    <div class="container">
+        <div class="header">header</div>
+        <div class="main">
+
+        <div  class="post">
             <div class="errs"></div>
-            <h1>Login</h1>
-            <input type="text" class="name"  >
-    
-            <input type="text"class="pass1" >
-    
+            <div class="Inputs">
+                <h1>Login</h1>
+                <input type="text" class="name" placeholder="name"  required>
+        
+                <input type="text"class="pass1" placeholder="password" required>
+        
+                <button type="submit" class="btn">
+                    Send
+                </button>
+            </div>
+           
+            </div>
         </div>
-        <button type="submit" class="btn">
-            Send
-        </button>
-        </div>
+    <div class="aside1">aside1</div>
+    <div class="aside2">aside2</div>
+    <div class="footer">footer</div>    
+</div>
 </body>
 <script type="module" src="./public/js/login.js"></script>
 </html>
