@@ -12,7 +12,7 @@ const users = require('../middle/users')
 
 route.post('/login',(req,res)=>{
     const {name,password} = req.body
-
+    
 
     const data = `SELECT * FROM Login_Users WHERE name = '${name}'`
 
@@ -45,9 +45,9 @@ route.post('/login',(req,res)=>{
 
 route.get('/logout',(req,res)=>{
     const token = req.headers['x-api-token']
-    console.log(users.Obj,'after')
+
     users.remove(token)
-    console.log(users.Obj,'before')
+
     res.send({msg:'sucess',status:401})
 })
 module.exports = route
