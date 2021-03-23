@@ -11,7 +11,7 @@ const btn = document.querySelector('.btn')
 
 
 
-async function send(e){
+/*async function send(e){
 
     const pass = pass1.value
     const name = namee.value
@@ -32,6 +32,25 @@ async function send(e){
            errs.innerHTML = data
        })
   // await received()
-}
+}*/
+async function send(e){
+    const pass = pass1.value
+    const name = namee.value
+    
+    if(pass==='' || name === ''){
+        errs.innerHTML = 'digite algo valido'
+        return e.preventDefault()
 
+    }
+    const response = await fetch('http://192.168.100.54:8080/cadastro',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({name,pass})
+    })
+    const {msg,status} = await response.json()
+    
+    if(msg === 'registered successfully' && status === 2)return window.location.href='login.html'
+
+    errs.innerHTML = msg
+}
 
