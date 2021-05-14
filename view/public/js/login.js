@@ -1,16 +1,20 @@
-
 const form = document.querySelector('form')
 
 const InputName = document.querySelector('.name')
 const InputPassword = document.querySelector('.pass1')
 
-const errs = document.querySelector('.errs')
+const errs = document.querySelector('.MsgErrs')
 const Inputs = document.querySelector('.Inputs')
 
 const btn = document.querySelector('.btn')
 .addEventListener('click',send)
 
 
+ const ClearErrMsg = (err)=>{
+     setInterval(()=>{
+        err.innerHTML = ''
+     },3000)
+ }
  
 async function send(e){
     try{
@@ -19,8 +23,11 @@ async function send(e){
 
     if(pass === '' || name === ''){
         errs.innerHTML = 'digite algo valido'
+
+        ClearErrMsg(errs)
         return e.preventDefault()
     }
+
    const response = await fetch('http://192.168.100.54:8080/login',{
         method:'POST',
         headers:  { 'Content-Type': 'application/json'},
@@ -42,7 +49,7 @@ async function send(e){
         window.location.href = 'home.html'
 
         
-        errs.innerHTML = msg
+        
     }catch(err){
         if(err)throw err
     }
