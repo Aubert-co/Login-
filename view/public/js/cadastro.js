@@ -1,9 +1,9 @@
-const form = document.querySelector('form')
+
 
 const namee = document.querySelector('.name')
 const pass1 = document.querySelector('.pass1')
 const pass2 = document.querySelector('.pass2')
-const errs = document.querySelector('.errs')
+const errs = document.querySelector('.MsgErrs')
 const Inputs = document.querySelector('.Inputs')
 
 const btn = document.querySelector('.btn')
@@ -39,8 +39,8 @@ async function send(e){
     
     if(pass==='' || name === ''){
         errs.innerHTML = 'digite algo valido'
-        return e.preventDefault()
 
+        return e.preventDefault()
     }
     const response = await fetch('http://192.168.100.54:8080/cadastro',{
         method:'POST',
