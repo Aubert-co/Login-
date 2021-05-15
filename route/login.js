@@ -33,8 +33,6 @@ route.post('/login',(req,res)=>{
        
         users.add({name,token})
      
-        
-        
 
         return res.send({msg:'sucessful login',status:200,token,name})
         
