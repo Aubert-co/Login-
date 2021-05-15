@@ -1,4 +1,3 @@
-const users = require('../middle/users')
 const jwt  = require('jsonwebtoken')
 
 module.exports = (req,res,next)=>{
@@ -8,7 +7,7 @@ module.exports = (req,res,next)=>{
 
 
     jwt.verify(token,'segredo',function(err, decoded) {
-      if (err) return res.status(401).send({status:401,msg:'no authorized'})
+      if (err) return res.status(401).send({status:401,msg:'Not authorized'})
       const {jwt} = decoded
       
       // se tudo estiver ok, salva no request para uso posterior
