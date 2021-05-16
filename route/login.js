@@ -4,7 +4,7 @@ const db = require('../model/db')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const users = require('../middle/users')
-
+const {addUsers,removeUsers,findUsers} = users
 
 
 
@@ -13,7 +13,6 @@ const users = require('../middle/users')
 route.post('/login',(req,res)=>{
     const {name,password} = req.body
     
-
     const data = `SELECT * FROM Login_Users WHERE name = '${name}'`
 
     db.query(data,(err,results)=>{
@@ -31,7 +30,7 @@ route.post('/login',(req,res)=>{
     
         const token = jwt.sign({jwt:tokens},'segredo',{expiresIn:24*60*60})
        
-        users.add({name,token})
+        addUsers({name,token})
      
 
         return res.send({msg:'sucessful login',status:200,token,name})
@@ -44,7 +43,7 @@ route.post('/login',(req,res)=>{
 route.get('/logout',(req,res)=>{
     const token = req.headers['x-api-token']
 
-    users.remove(token)
+    removeUsers(token)
 
     res.send({msg:'sucess',status:401})
 })
