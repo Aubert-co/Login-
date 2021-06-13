@@ -42,11 +42,12 @@ async function send(e){
 
         return e.preventDefault()
     }
-    const response = await fetch('http://192.168.100.54:8080/cadastro',{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({name,pass})
-    })
+    const Url = 'http://192.168.100.54:8080/cadastro'
+    const method = "POST"
+    const headers ={'Content-Type':'application/json'}
+    const body = JSON.stringify({name,pass})
+    
+    const response = await fetch(Url,{method,headers,body})
     const {msg,status} = await response.json()
     
     if(msg === 'registered successfully' && status === 2)return window.location.href='login.html'
