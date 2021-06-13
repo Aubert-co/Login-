@@ -15,8 +15,9 @@ route.post('/login',(req,res)=>{
     
     if(!name || !password)return res.send({status:5000,msg:'...'})
 
-    if(!String(password))return res.send({status:5000,msg:"..."})
-    
+    if(typeof password !== "string" || typeof name !=="string")return res.send({status:100,msg:"precisa ser string"})
+
+
     const data = `SELECT * FROM Login_Users WHERE name = '${name}'`
 
     db.query(data,(err,results)=>{
@@ -46,7 +47,7 @@ route.post('/login',(req,res)=>{
 
 route.get('/logout',(req,res)=>{
     const token = req.headers['x-api-token']
-
+    
 //    removeUsers(token)
 
     res.send({msg:'sucess',status:401})
