@@ -17,7 +17,7 @@ route.post('/login',(req,res)=>{
 
     db.query(data,(err,results)=>{
         if(err)throw err
-
+        
         if(results.length === 0 )return res.send({status:401,msg:'user not found'})
         const {senha,id} = results[0]
   
