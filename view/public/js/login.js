@@ -16,40 +16,36 @@ const btn = document.querySelector('.btn')
      },3000)
  }
  
+
 async function send(e){
     try{
     const name = InputName.value
     const pass = InputPassword.value
 
-    if(pass === '' || name === ''){
+    if(pass === '' || name === '' || typeof name !== 'string'){
         errs.innerHTML = 'digite algo valido'
-
         ClearErrMsg(errs)
         return e.preventDefault()
     }
+    if(typeof pass !== 'string'){
+        errs.innerHTML = "Digite uma senha com numeros e letras"
 
-   const response = await fetch('http://192.168.100.54:8080/login',{
-        method:'POST',
-        headers:  { 'Content-Type': 'application/json'},
-        body:JSON.stringify({name:name,password:pass})
+        return e.preventDefault()
+    }
     
-    })/*.then(response=>response.json())
-       .then((res)=>{
-           console.log(res)
-           const {token} = res
-            localStorage.setItem('token',token)
-        
-         //  window.location.href = 'http://127.0.0.1:5500/view/home.html'
-           
-       })*/
+    const URL = 'http://192.168.100.54:8080/login'
+    const method = "POST"
+    const headers = {'Content-Type':'application/json'}
+    const body = JSON.stringify({name:name,password:pass})
+   
+    const response = await fetch(URL,{method,headers,body})
+
         const {msg,status,token} =await response.json()
         if(status ===401 || token === undefined)return errs.innerHTML = msg
            
         localStorage.setItem('token',token)
         window.location.href = 'home.html'
 
-        
-        
     }catch(err){
         if(err)throw err
     }
