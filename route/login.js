@@ -13,11 +13,15 @@ const users = require('../middle/users')
 route.post('/login',(req,res)=>{
     const {name,password} = req.body
     
+    if(!name || !password)return res.send({status:5000,msg:'...'})
+
+    if(!String(password))return res.send({status:5000,msg:"..."})
+    
     const data = `SELECT * FROM Login_Users WHERE name = '${name}'`
 
     db.query(data,(err,results)=>{
         if(err)throw err
-        
+
         if(results.length === 0 )return res.send({status:401,msg:'user not found'})
         const {senha,id} = results[0]
   
