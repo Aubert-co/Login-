@@ -1,11 +1,15 @@
 const token = localStorage.getItem('token')
 const DivAuth = document.querySelector('.auth')
 const logout = document.querySelector('.logout')
+logout.addEventListener('click',logoutFunc)
 
 
 const get = async()=>{
 try{
-    const response = await fetch('http://192.168.100.54:8080/auth/home',{headers:{'x-api-token':token}})
+    const headers = {'x-api-token':token}
+    const method = "GET"
+    const URL = 'http://192.168.100.54:8080/auth/home'
+    const response = await fetch(URL,{headers,method})
 
     const {msg,status} = await response.json()
 
@@ -14,33 +18,18 @@ try{
         DivAuth.innerHTML = msg
     }
     }catch(err){
-        if(err)throw err
+        if(err)window.location.href = "login.html"
     }
 }
 get()
 
-/*
-function get (){
-    fetch('http://192.168.100.54:8080/auth/home',{headers:{'x-api-token':'token'}})
-        .then((res)=>res.json())
-        .then((datas)=>{
-            const {msg,status} = datas
-            alert(status)
-            if(status === 401){
-                alert('proibida')
-                window.location.href = 'login.html'
-                DivAuth.innerHTML = msg
-            }
-        })
-        .catch((err)=>{
-            if(err)console.log(err)
-        })
-}
-get()
-*/
-const logoutFunc = async()=>{
+
+async function logoutFunc (){
     try{
-        const response = await fetch('http://192.168.100.54:8080/logout',{headers:{'x-api-token':token}}) 
+        const URL = 'http://192.168.100.54:8080/logout'
+        const headers = {'x-api-token':token}
+        const method = "GET"
+        const response = await fetch(URL,{headers,method}) 
 
         const {msg,status} = await response.json()
 
@@ -52,4 +41,3 @@ const logoutFunc = async()=>{
     }
 }
 
-logout.addEventListener('click',logoutFunc)
