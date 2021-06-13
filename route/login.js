@@ -48,6 +48,7 @@ route.post('/login',(req,res)=>{
 route.get('/logout',(req,res)=>{
     const token = req.headers['x-api-token']
     
+    delete token
 //    removeUsers(token)
 
     res.send({msg:'sucess',status:401})
