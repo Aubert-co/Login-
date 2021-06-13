@@ -7,6 +7,7 @@ module.exports = (req,res,next)=>{
         
 
     jwt.verify(token,'segredo',function(err, decoded) {
+      
       if (err) return res.status(401).send({status:401,msg:'Not authorized'})
       const {jwt} = decoded
       
