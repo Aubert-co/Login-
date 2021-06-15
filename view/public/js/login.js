@@ -50,3 +50,9 @@ async function send(e){
         if(err)throw err
     }
     }
+
+
+ 
+function alo(){
+    alert('ola')
+}
