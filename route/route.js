@@ -15,10 +15,11 @@ route.use(bodyParser.json())
 
 
 route.use(cors())
+
 route.use(login)
 route.use(cadastro)
-
 route.use('/auth',middle)
+
 route.use(home)
 
 
