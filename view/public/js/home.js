@@ -1,10 +1,11 @@
 const token = localStorage.getItem('token')
 const DivAuth = document.querySelector('.auth')
-const logout = document.querySelector('.logout')
-logout.addEventListener('click',logoutFunc)
+
+const body = document.querySelector('body')
 
 
-const get = async()=>{
+
+ async function  get (){
 try{
     const headers = {'x-api-token':token}
     const method = "GET"
@@ -16,7 +17,9 @@ try{
     if(status === 401){
         window.location.href = 'login.html'
         DivAuth.innerHTML = msg
+        return 
     }
+    layout()
     }catch(err){
         if(err)window.location.href = "login.html"
     }
@@ -39,5 +42,28 @@ async function logoutFunc (){
     }catch(err){
         if(err)throw err
     }
+}
+
+function layout(){
+body.innerHTML = `
+<div class="container">
+<div class="header">
+        <a href="#" class="logout">logout</a>
+</div>
+<div class="main">
+ 
+      
+    <div class="auth">
+        Welcome
+    </div>
+</div>
+<div class="aside1">aside1</div>
+<div class="aside2">aside2</div>
+<div class="footer">footer</div>
+</div>
+
+`
+const logout = document.querySelector('.logout')
+logout.addEventListener('click',logoutFunc)
 }
 

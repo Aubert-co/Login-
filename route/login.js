@@ -3,9 +3,8 @@ const route = require('express').Router()
 const db = require('../model/db')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const users = require('../middle/users')
+//const users = require('../middle/users')
 //const {addUsers,removeUsers,findUsers} = users
-
 
 
 
@@ -13,10 +12,12 @@ const users = require('../middle/users')
 route.post('/login',(req,res)=>{
     const {name,password} = req.body
     
-    if(!name || !password)return res.send({status:5000,msg:'...'})
+
+    if(!name || !password || password === '' || name === '')return res.send({status:500,msg:'...'})
 
     if(typeof password !== "string" || typeof name !=="string")return res.send({status:100,msg:"precisa ser string"})
 
+    
 
     const data = `SELECT * FROM Login_Users WHERE name = '${name}'`
 

@@ -10,7 +10,7 @@ const btn = document.querySelector('.btn')
 .addEventListener('click',send)
 
 
- const ClearErrMsg = (err)=>{
+const ClearErrMsg = (err)=>{
      setInterval(()=>{
         err.innerHTML = ''
      },3000)
@@ -53,6 +53,4 @@ async function send(e){
 
 
  
-function alo(){
-    alert('ola')
-}
+

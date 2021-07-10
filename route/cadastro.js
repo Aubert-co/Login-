@@ -7,12 +7,12 @@ const db = require('../model/db')
 
 route
 .post('/cadastro',(req,res)=>{
-    const {name,pass} = req.body
-
+    const {name,password} = req.body
+    console.log(name,password)
         
-    if(!name || !password)return res.send({status:5000,msg:'...'})
+    if(!name || !password)return res.send({status:500,msg:'...'})
 
-    if(!String(password))return res.send({status:5000,msg:"..."})
+    if(password === '' || name === '')return res.send({status:500,msg:"..."})
 
 
     const sql = `SELECT * FROM Login_Users WHERE name='${name}'`
