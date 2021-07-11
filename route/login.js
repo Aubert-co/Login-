@@ -3,8 +3,7 @@ const route = require('express').Router()
 const db = require('../model/db')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-//const users = require('../middle/users')
-//const {addUsers,removeUsers,findUsers} = users
+
 
 
 
@@ -13,9 +12,9 @@ route.post('/login',(req,res)=>{
     const {name,password} = req.body
     
 
-    if(!name || !password || password === '' || name === '')return res.send({status:500,msg:'...'})
-
-    if(typeof password !== "string" || typeof name !=="string")return res.send({status:100,msg:"precisa ser string"})
+    if( password === '' || name === '' || typeof password !== "string" || typeof name !=="string"){
+        return res.status(405).send({msg:'wrong datas'})
+        }
 
     
 
@@ -24,13 +23,13 @@ route.post('/login',(req,res)=>{
     db.query(data,(err,results)=>{
         if(err)throw err
 
-        if(results.length === 0 )return res.send({status:401,msg:'user not found'})
+        if(results.length === 0 )return res.status(405).send({msg:'user not found'})
         const {senha,id} = results[0]
   
         const compare = bcrypt.compareSync(password,senha)
 
         
-        if(!compare)return res.send({status:401,msg:'user not found'})
+        if(!compare)return res.status(405).send({msg:'user not found'})
         
         const tokens = {name,id}
     
@@ -38,8 +37,7 @@ route.post('/login',(req,res)=>{
        
         //addUsers({name,token})
      
-
-        return res.send({msg:'sucessful login',status:200,token,name})
+        return res.status(200).send({msg:'sucessful login',token})
         
     })
 
@@ -52,6 +50,6 @@ route.get('/logout',(req,res)=>{
     delete token
 //    removeUsers(token)
 
-    res.send({msg:'sucess',status:401})
+    res.send({msg:'sucess',status:200})
 })
 module.exports = route
