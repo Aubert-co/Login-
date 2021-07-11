@@ -17,3 +17,5 @@ app.use(route)
 app.listen(8080,()=>{
     console.log('rodando 8080')
 })
+
+module.exports = app
