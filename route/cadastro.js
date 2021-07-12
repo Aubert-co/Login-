@@ -6,12 +6,16 @@ const db = require('../model/db')
 
 
 route
-.post('/cadastro',(req,res)=>{
+.post('/cadastro', (req,res)=>{
     const {name,password} = req.body
     
     
-    if(password === '' || name === '' || typeof name !=='string')return res.send({status:404,msg:"wrong datas"})
+    if(password === '' || name === '' || typeof name !== 'string' ){
 
+     res.status(404).send({msg:"wrong datas"})
+     
+     return
+    }
 
     const sql = `SELECT * FROM Login_Users WHERE name='${name}'`
 
@@ -19,15 +23,15 @@ route
         if(err)throw err
 
      
-        if(results.length >0)return  res.send({msg:'user already exist',status:404})
+        if(results.length >0)return  res.status(404).send({msg:'user already exist'})
         
-            const senha = bcrypt.hashSync(pass,5)
+            const senha = bcrypt.hashSync(password,5)
             const save = `INSERT INTO Login_Users(name,senha) VALUES('${name}','${senha}')`
 
             db.query(save,(err)=>{
                 if(err)throw err
                 
-               return res.send({status:200,msg:'registered successfully'})
+               return res.status(200).send({msg:'registered successfully'})
             })
     })
 })
