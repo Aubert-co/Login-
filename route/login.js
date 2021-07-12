@@ -14,7 +14,7 @@ route.post('/login',(req,res)=>{
 
     if( password === '' || name === '' || typeof password !== "string" || typeof name !=="string"){
         return res.status(405).send({msg:'wrong datas'})
-        }
+    }
 
     
 
@@ -36,7 +36,8 @@ route.post('/login',(req,res)=>{
         const token = jwt.sign({jwt:tokens},'segredo',{expiresIn:24*60*60})
        
         //addUsers({name,token})
-     
+        
+        res.set('x-api-token',token)
         return res.status(200).send({msg:'sucessful login',token})
         
     })
@@ -45,9 +46,9 @@ route.post('/login',(req,res)=>{
 })
 
 route.get('/logout',(req,res)=>{
-    const token = req.headers['x-api-token']
+    var token = req.headers['x-api-token']
     
-    delete token
+     token = ''
 //    removeUsers(token)
 
     res.send({msg:'sucess',status:200})
