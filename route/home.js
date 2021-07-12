@@ -2,9 +2,9 @@ const router = require('express').Router()
 
 
 
-router.get('/auth/home',(req,res)=>{
+router.get('/home',(req,res)=>{
 
 
-  res.send({msg:'Welcome',status:200})
+  res.status(200).send({msg:'Welcome'})
 })
 module.exports = router
