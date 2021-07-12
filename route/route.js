@@ -20,7 +20,7 @@ route.use(login)
 route.use(cadastro)
 route.use('/auth',middle)
 
-route.use(home)
+route.use('/auth',home)
 
 
 
