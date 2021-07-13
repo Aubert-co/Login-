@@ -4,7 +4,7 @@ const route = require('express').Router()
 const login = require('./login')
 const cadastro = require('./cadastro')
 const home = require('./home')
-const middle = require('../middle/mid')
+const middle = require('../middle/middleware')
 
 const bodyParser = require('body-parser')
 const cors = require('cors')
