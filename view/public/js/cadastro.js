@@ -1,4 +1,4 @@
-
+import {CadastroPost} from './services/request'
 
 const namee = document.querySelector('.name')
 const pass1 = document.querySelector('.pass1')
@@ -7,33 +7,11 @@ const errs = document.querySelector('.MsgErrs')
 const Inputs = document.querySelector('.Inputs')
 
 const btn = document.querySelector('.btn')
-.addEventListener('click',send)
+.addEventListener('click',FormEvent)
 
 
 
-/*async function send(e){
-
-    const pass = pass1.value
-    const name = namee.value
-
-    if(pass === '' || name === ''){
-        
-        errs.innerHTML = 'digite algo valido'
-        return e.preventDefault()
-    
-    }
-    fetch('http://localhost:8080/cadastro',{
-        method:'POST',
-        headers:  { 'Content-Type': 'application/json'},
-        body:JSON.stringify({name:name,pass:pass})
-    
-    }).then(data=>data.text())
-       .then((data)=>{
-           errs.innerHTML = data
-       })
-  // await received()
-}*/
-async function send(e){
+async function FormEvent(e){
     const pass = pass1.value
     const name = namee.value
     
@@ -42,16 +20,15 @@ async function send(e){
 
         return e.preventDefault()
     }
-    const Url = 'http://192.168.100.54:8080/cadastro'
-    const method = "POST"
-    const headers ={'Content-Type':'application/json'}
-    const body = JSON.stringify({name,pass})
     
-    const response = await fetch(Url,{method,headers,body})
+    SendDatas(name,pass)
+}
+
+async function SendDatas(name,password){
+    const response = await CadastroPost(name,password)
     const {msg,status} = await response.json()
     
     if(msg === 'registered successfully' && status === 2)return window.location.href='login.html'
 
-    errs.innerHTML = msg
-}
 
+}
