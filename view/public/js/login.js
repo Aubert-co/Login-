@@ -1,3 +1,5 @@
+import {LoginPost} from './services/request'
+
 const form = document.querySelector('form')
 
 const InputName = document.querySelector('.name')
@@ -7,7 +9,7 @@ const errs = document.querySelector('.MsgErrs')
 const Inputs = document.querySelector('.Inputs')
 
 const btn = document.querySelector('.btn')
-.addEventListener('click',send)
+.addEventListener('click',FormEvent)
 
 
 const ClearErrMsg = (err)=>{
@@ -17,8 +19,8 @@ const ClearErrMsg = (err)=>{
  }
  
 
-async function send(e){
-    try{
+ function FormEvent(e){
+
     const name = InputName.value
     const pass = InputPassword.value
 
@@ -32,25 +34,23 @@ async function send(e){
 
         return e.preventDefault()
     }
-    
-    const URL = 'http://192.168.100.54:8080/login'
-    const method = "POST"
-    const headers = {'Content-Type':'application/json'}
-    const body = JSON.stringify({name:name,password:pass})
-   
-    const response = await fetch(URL,{method,headers,body})
+    SendDatas(name,pass)
+}
 
+
+async function SendDatas(name,password){
+    try{
+        const response = await LoginPost(name,password)
         const {msg,status,token} =await response.json()
-        if(status ===401 || token === undefined)return errs.innerHTML = msg
-           
-        localStorage.setItem('token',token)
-        window.location.href = 'home.html'
-
+        LoginAndToken(msg,status,token)
     }catch(err){
         if(err)throw err
     }
-    }
+} 
 
-
- 
-
+function LoginAndToken(msg,status,token){
+    if(status ===401 || token === undefined)return errs.innerHTML = msg
+           
+    localStorage.setItem('token',token)
+    window.location.href = 'home.html'
+}
