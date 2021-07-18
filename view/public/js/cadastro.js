@@ -16,11 +16,14 @@ async function FormEvent(e){
     const name = namee.value
     
     if(pass==='' || name === ''){
-        errs.innerHTML = 'digite algo valido'
+        errs.innerHTML = 'Digite algo valido'
 
         return e.preventDefault()
     }
-    
+    if(pass2.value !== pass1.value){
+        errs.innerHTML = 'Senhas não batem'
+        return e .preventDefault()
+    }
     SendDatas(name,pass)
 }
 
