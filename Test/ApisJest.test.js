@@ -1,9 +1,8 @@
 const { expect } = require('chai')
 const request = require('supertest')
-,app = require('../app')
+const app = require('../app')
 const dbSql = require('../model/db')
-var server
-,globalToken
+var server,globalToken
 
 describe("POST /login",()=>{
     beforeAll((done)=>{
